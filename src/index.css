@@ -73,6 +73,7 @@ button { font: inherit; cursor: pointer; }
   gap: 1rem;
   min-height: 64px;
 }
+.navbar__derecha { display: flex; align-items: center; gap: 0.6rem; }
 .navbar__brand {
   font-family: var(--fuente-titulo);
   font-size: 1.9rem;
@@ -81,49 +82,123 @@ button { font: inherit; cursor: pointer; }
   color: #fff;
 }
 .navbar__brand-tech { color: var(--amarillo); }
-.navbar__links { display: flex; align-items: center; gap: 1.5rem; }
-.navbar__links a { color: #d7d9dc; font-weight: 500; }
-.navbar__links a:hover,
-.navbar__links a.active { color: var(--amarillo); }
-.navbar__cart {
+
+/* Botón hamburguesa */
+.navbar__hamburguesa {
   display: flex;
-  align-items: center;
-  gap: 0.45rem;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0 9px;
+  background: transparent;
+  border: 1px solid #3a3d41;
+  border-radius: 8px;
+}
+.navbar__hamburguesa span { display: block; height: 2px; background: #fff; border-radius: 2px; }
+.navbar__hamburguesa:hover { border-color: var(--amarillo); }
+.navbar__hamburguesa:hover span { background: var(--amarillo); }
+
+/* Carrito */
+.navbar__cart {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
-  padding: 0;
-  color: #d7d9dc;
-  font-weight: 500;
+  color: #fff;
 }
 .navbar__cart:hover { color: var(--amarillo); }
 .navbar__badge {
+  position: absolute;
+  top: 0;
+  right: -2px;
   background: var(--rojo);
   color: #fff;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  min-width: 1.4rem;
-  height: 1.4rem;
-  padding: 0 0.35rem;
+  min-width: 1.3rem;
+  height: 1.3rem;
+  padding: 0 0.3rem;
   border-radius: 999px;
-  display: inline-grid;
+  display: grid;
   place-items: center;
 }
-.navbar__total { color: #fff; font-size: 0.9rem; }
-.navbar__usuario { display: flex; align-items: center; gap: 0.7rem; color: #fff; }
-.navbar__salir {
+
+/* Menú lateral */
+.menu { position: fixed; inset: 0; z-index: 30; display: flex; justify-content: flex-end; }
+.menu__fondo { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.55); animation: menu-fade 0.2s ease; }
+.menu__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(320px, 85%);
+  height: 100%;
+  background: var(--negro);
+  color: #fff;
+  border-left: 4px solid var(--amarillo);
+  animation: menu-entrada 0.25s ease;
+}
+.menu__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid #2a2d31;
+}
+.menu__titulo { font-family: var(--fuente-titulo); font-size: 1.6rem; color: var(--amarillo); }
+.menu__cerrar {
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.7rem;
+  line-height: 1;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+}
+.menu__cerrar:hover { background: #2a2d31; }
+
+.menu__lista { flex: 1; list-style: none; margin: 0; padding: 0.5rem 0; overflow-y: auto; }
+.menu__lista a {
+  display: block;
+  padding: 0.85rem 1.2rem;
+  color: #d7d9dc;
+  font-weight: 500;
+  font-size: 1.05rem;
+  border-left: 4px solid transparent;
+}
+.menu__lista a:hover { background: #1c1e21; color: #fff; }
+.menu__lista a.active { color: var(--amarillo); border-left-color: var(--amarillo); background: #1c1e21; }
+
+.menu__pie { padding: 1rem 1.2rem 1.3rem; border-top: 1px solid #2a2d31; }
+.menu__usuario { margin: 0 0 0.8rem; font-weight: 600; }
+.menu__usuario small { display: block; font-weight: 400; font-size: 0.8rem; color: #8d9197; }
+.menu__salir,
+.menu__entrar {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  font-weight: 600;
   background: transparent;
   color: var(--amarillo);
   border: 1px solid var(--amarillo);
   border-radius: 6px;
-  padding: 0.2rem 0.7rem;
 }
-.navbar__salir:hover { background: var(--amarillo); color: var(--negro); }
+.menu__salir:hover,
+.menu__entrar:hover { background: var(--amarillo); color: var(--negro); }
+
+@keyframes menu-entrada { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes menu-fade { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 600px) {
-  .navbar__total { display: none; }
-  .navbar__links { gap: 0.8rem; font-size: 0.9rem; }
-  .navbar__inner { flex-wrap: wrap; padding: 0.5rem 0; }
-  .navbar__brand { font-size: 1.5rem; }
+  .navbar__brand { font-size: 1.6rem; }
 }
 
 /* ============================================================
