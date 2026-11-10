@@ -321,7 +321,11 @@ button { font: inherit; cursor: pointer; }
   border-radius: 6px;
   padding: 1.8rem;
 }
-.formulario--angosto { max-width: 420px; }
+.formulario--angosto {
+  max-width: 420px;
+  border-top: 1px solid var(--borde);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.05);
+}
 .formulario__campo { display: flex; flex-direction: column; gap: 0.3rem; font-weight: 600; }
 .formulario__campo input,
 .formulario__campo textarea {
