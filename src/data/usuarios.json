@@ -1,0 +1,4 @@
+[
+  { "id": 1, "nombre": "Administrador", "email": "admin@conectate.tech", "password": "admin123", "rol": "admin" },
+  { "id": 2, "nombre": "Cliente", "email": "cliente@conectate.tech", "password": "cliente123", "rol": "comun" }
+]

@@ -1,0 +1,191 @@
+[
+  {
+    "id": 1,
+    "nombre": "Intel Core Ultra 7 265K 5.5Ghz Turbo Socket 1851 Arrow Lake",
+    "categoria": "CPUs",
+    "precio": 562000,
+    "descripcion": "20 núcleos, arquitectura Arrow Lake de última generación.",
+    "imagen": "/images/cpu.jpg",
+    "stock": 10
+  },
+  {
+    "id": 2,
+    "nombre": "MSI B860 GAMING PLUS WIFI DDR5 LGA1851 WiFi 6",
+    "categoria": "Mothers",
+    "precio": 326600,
+    "descripcion": "Ideal para setups de alto rendimiento y conectividad total.",
+    "imagen": "/images/mother.jpg",
+    "stock": 8
+  },
+  {
+    "id": 3,
+    "nombre": "Asrock Intel ARC B570 10GB GDDR6 Challenger OC",
+    "categoria": "Gráficos",
+    "precio": 423900,
+    "descripcion": "Gráficos potentes con overclock de fábrica para gaming.",
+    "imagen": "/images/gpu.jpg",
+    "stock": 6
+  },
+  {
+    "id": 4,
+    "nombre": "Memoria RAM DDR5 16GB 6000MHz T-force Vulcan Team Group",
+    "categoria": "RAM",
+    "precio": 429865,
+    "descripcion": "Alta velocidad optimizada para PC de escritorio gamer.",
+    "imagen": "/images/ram.jpg",
+    "stock": 15
+  },
+  {
+    "id": 5,
+    "nombre": "Disco Solido Ssd M2 Pci-E Nvme 1TB Kingston Nv3 PCIe 4.0",
+    "categoria": "Almacenamiento",
+    "precio": 295999,
+    "descripcion": "Almacenamiento ultra rápido de 1TB para carga instantánea.",
+    "imagen": "/images/ssd.jpg",
+    "stock": 12
+  },
+  {
+    "id": 6,
+    "nombre": "Fuente Cooler Master 850W 80 Plus Gold Full Modular MWE V3",
+    "categoria": "Fuentes",
+    "precio": 165999,
+    "descripcion": "Eficiencia Gold y gestión de cables limpia para tu setup.",
+    "imagen": "/images/fuente.jpg",
+    "stock": 9
+  },
+  {
+    "id": 7,
+    "nombre": "Gabinete be quiet! Light Base 600 LX White ARGB",
+    "categoria": "Gabinetes",
+    "precio": 330186,
+    "descripcion": "Chasis premium con diseño transparente y flujo de aire.",
+    "imagen": "/images/gabinete.jpg",
+    "stock": 5
+  },
+  {
+    "id": 8,
+    "nombre": "Cooler CPU ID-Cooling FROZN A610 120mm ARGB 250w TDP",
+    "categoria": "Coolers",
+    "precio": 96841,
+    "descripcion": "Disipador de alto rendimiento para procesadores potentes.",
+    "imagen": "/images/cooler-cpu.jpg",
+    "stock": 14
+  },
+  {
+    "id": 9,
+    "nombre": "Cooler FAN Be Quiet! LIGHT WINGS 120mm White ARGB PWM KIT X3",
+    "categoria": "Coolers",
+    "precio": 140085,
+    "descripcion": "Ventiladores silenciosos con iluminación avanzada.",
+    "imagen": "/images/fans.jpg",
+    "stock": 11
+  },
+  {
+    "id": 10,
+    "nombre": "Monitor Valkyrie 27\" Qhd 1440p 200hz 1ms Ips G Sync Hdr",
+    "categoria": "Monitores",
+    "precio": 299500,
+    "descripcion": "Resolución 2K y 200Hz para fluidez total en gaming.",
+    "imagen": "/images/monitor.jpg",
+    "stock": 7
+  },
+  {
+    "id": 11,
+    "nombre": "Teclado gamer bluetooth Redragon Horus K618 QWERTY Low profile",
+    "categoria": "Periféricos",
+    "precio": 124747,
+    "descripcion": "Mecánico inalámbrico ultra delgado con switches lineares.",
+    "imagen": "/images/teclado.jpg",
+    "stock": 20
+  },
+  {
+    "id": 12,
+    "nombre": "Redragon Ratón Inalámbrico Gaming Tri-mode 2.4g/usb-c/bt",
+    "categoria": "Periféricos",
+    "precio": 93574,
+    "descripcion": "Mouse ergonómico con iluminación RGB y tres modos.",
+    "imagen": "/images/mouse.jpg",
+    "stock": 25
+  },
+  {
+    "id": 13,
+    "nombre": "Webcam Logitech Brio 100 Full Hd 1080p Negro",
+    "categoria": "Periféricos",
+    "precio": 60199,
+    "descripcion": "Cámara HD con tapa de privacidad integrada para oficina.",
+    "imagen": "/images/webcam.jpg",
+    "stock": 18
+  },
+  {
+    "id": 14,
+    "nombre": "Gamesir Cyclone 2 Charging dock Shadow Black Hall Effect",
+    "categoria": "Periféricos",
+    "precio": 123999,
+    "descripcion": "Control inalámbrico con joysticks magnéticos y base.",
+    "imagen": "/images/joystick.jpg",
+    "stock": 10
+  },
+  {
+    "id": 15,
+    "nombre": "Barra De Sonido Redragon Gs570 Darknets Led Rgb Bt Aux",
+    "categoria": "Audio",
+    "precio": 92999,
+    "descripcion": "Audio compacto con efectos de luz para tu escritorio.",
+    "imagen": "/images/audio.jpg",
+    "stock": 13
+  },
+  {
+    "id": 16,
+    "nombre": "Soporte Naku SS-C024D Doble Brazo Hidráulico 13-32\"",
+    "categoria": "Soportes",
+    "precio": 78958,
+    "descripcion": "Soporte robusto con ajuste de altura fluido para dos monitores.",
+    "imagen": "/images/soporte.jpg",
+    "stock": 8
+  },
+  {
+    "id": 17,
+    "nombre": "Estabilizador De Tension Trv Powersafe Usb 6tomas Negro",
+    "categoria": "Protección",
+    "precio": 59490,
+    "descripcion": "Protección eléctrica con puertos USB adicionales.",
+    "imagen": "/images/estabilizador.jpg",
+    "stock": 16
+  },
+  {
+    "id": 18,
+    "nombre": "Unidad Sandisk Ultra Dual 256 Gb Usb-c Usb 3.1",
+    "categoria": "Almacenamiento",
+    "precio": 145603,
+    "descripcion": "Pendrive versátil para celular y computadora.",
+    "imagen": "/images/pendrive.jpg",
+    "stock": 30
+  },
+  {
+    "id": 19,
+    "nombre": "Mouse Pad Gamer Rgb Retroiluminado Xinua Mapa 80x30 Cm",
+    "categoria": "Periféricos",
+    "precio": 25000,
+    "descripcion": "Superficie extendida con bordes iluminados.",
+    "imagen": "/images/mousepad.jpg",
+    "stock": 22
+  },
+  {
+    "id": 20,
+    "nombre": "Placa de Video NVIDIA GeForce RTX 5070 MSI Trio 12GB",
+    "categoria": "Gráficos",
+    "precio": 1300000,
+    "descripcion": "Placa de video de alta gama con triple ventilador para gaming en 1440p y 4K.",
+    "imagen": "/images/gpu-rtx-5070.jpg",
+    "stock": 4
+  },
+  {
+    "id": 21,
+    "nombre": "Refrigeración Líquida ID-Cooling FX360 LCD 360mm AIO",
+    "categoria": "Coolers",
+    "precio": 250000,
+    "descripcion": "Watercooler AIO de 360mm con pantalla LCD en el bloque y radiador triple para procesadores exigentes.",
+    "imagen": "/images/refrigeracion-liquida.jpg",
+    "stock": 6
+  }
+]
