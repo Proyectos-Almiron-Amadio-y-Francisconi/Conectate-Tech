@@ -84,7 +84,13 @@ function PanelCarrito() {
                       <div className="drawer__cantidad">
                         <button className="btn btn--rojo" onClick={() => quitarUno(item.id)} aria-label="Quitar una unidad">−</button>
                         <span>{item.cantidad}</span>
-                        <button className="btn btn--amarillo" onClick={() => agregar(item.id)} aria-label="Agregar una unidad">+</button>
+                        <button
+                          className="btn btn--amarillo"
+                          disabled={item.cantidad >= item.stock}
+                          title={item.cantidad >= item.stock ? 'Alcanzaste el stock disponible' : undefined}
+                          onClick={() => agregar(item.id)}
+                          aria-label="Agregar una unidad"
+                        >+</button>
                       </div>
                       <strong className="drawer__subtotal">{formatPrecio(item.precio * item.cantidad)}</strong>
                     </div>

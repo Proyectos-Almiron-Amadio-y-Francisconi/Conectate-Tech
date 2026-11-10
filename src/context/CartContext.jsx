@@ -9,6 +9,8 @@ function reducer(estado, accion) {
   switch (accion.tipo) {
     case 'AGREGAR': {
       const existe = estado.find((i) => i.id === accion.id)
+      // Nunca se puede superar el stock real del producto (accion.max)
+      if ((existe?.cantidad ?? 0) >= accion.max) return estado
       if (existe) {
         return estado.map((i) => (i.id === accion.id ? { ...i, cantidad: i.cantidad + 1 } : i))
       }
@@ -22,6 +24,17 @@ function reducer(estado, accion) {
       return estado.filter((i) => i.id !== accion.id)
     case 'VACIAR':
       return []
+    case 'AJUSTAR_STOCK': {
+      // Recorta lo que ya estaba guardado si supera el stock actual
+      const ajustado = estado
+        .map((i) => {
+          const p = accion.productos.find((prod) => prod.id === i.id)
+          return p ? { ...i, cantidad: Math.min(i.cantidad, p.stock) } : i
+        })
+        .filter((i) => i.cantidad > 0)
+      const igual = ajustado.length === estado.length && ajustado.every((i, k) => i.cantidad === estado[k].cantidad)
+      return igual ? estado : ajustado
+    }
     default:
       return estado
   }
@@ -48,6 +61,11 @@ export function CartProvider({ children }) {
     localStorage.setItem(CLAVE_STORAGE, JSON.stringify(items))
   }, [items])
 
+  // Si el carrito guardado (o el stock) quedó desfasado, lo corregimos
+  useEffect(() => {
+    dispatch({ tipo: 'AJUSTAR_STOCK', productos })
+  }, [productos])
+
   const value = useMemo(() => {
     // Une cada item del carrito con los datos completos del producto
     const detalle = items
@@ -59,7 +77,10 @@ export function CartProvider({ children }) {
       cantidadTotal: detalle.reduce((acc, i) => acc + i.cantidad, 0),
       total: detalle.reduce((acc, i) => acc + i.precio * i.cantidad, 0),
       getCantidad: (id) => items.find((i) => i.id === id)?.cantidad ?? 0,
-      agregar: (id) => dispatch({ tipo: 'AGREGAR', id }),
+      agregar: (id) => {
+        const producto = productos.find((p) => p.id === id)
+        if (producto) dispatch({ tipo: 'AGREGAR', id, max: producto.stock })
+      },
       quitarUno: (id) => dispatch({ tipo: 'QUITAR_UNO', id }),
       eliminar: (id) => dispatch({ tipo: 'ELIMINAR', id }),
       vaciar: () => dispatch({ tipo: 'VACIAR' }),

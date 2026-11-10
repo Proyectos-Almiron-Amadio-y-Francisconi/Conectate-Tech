@@ -6,6 +6,7 @@ import ProductImage from './ProductImage.jsx'
 function ProductCard({ producto }) {
   const { getCantidad, agregar, quitarUno } = useCart()
   const cantidad = getCantidad(producto.id)
+  const alMaximo = cantidad >= producto.stock
 
   return (
     <article className="card">
@@ -21,14 +22,24 @@ function ProductCard({ producto }) {
         <p className="card__precio">{formatPrecio(producto.precio)}</p>
 
         {cantidad === 0 ? (
-          <button className="btn btn--amarillo card__accion" onClick={() => agregar(producto.id)}>
-            Agregar al carrito
+          <button
+            className="btn btn--amarillo card__accion"
+            disabled={producto.stock === 0}
+            onClick={() => agregar(producto.id)}
+          >
+            {producto.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}
           </button>
         ) : (
           <div className="card__contador">
             <button className="btn btn--rojo" onClick={() => quitarUno(producto.id)} aria-label="Quitar una unidad">−</button>
             <span>{cantidad}</span>
-            <button className="btn btn--amarillo" onClick={() => agregar(producto.id)} aria-label="Agregar una unidad">+</button>
+            <button
+              className="btn btn--amarillo"
+              disabled={alMaximo}
+              title={alMaximo ? 'Alcanzaste el stock disponible' : undefined}
+              onClick={() => agregar(producto.id)}
+              aria-label="Agregar una unidad"
+            >+</button>
           </div>
         )}
       </div>

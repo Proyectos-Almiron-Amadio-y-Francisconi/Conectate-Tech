@@ -37,10 +37,10 @@ function ProductDetail() {
           <div className="detalle__acciones">
             <button
               className="btn btn--amarillo"
-              disabled={producto.stock === 0}
+              disabled={producto.stock === 0 || enCarrito >= producto.stock}
               onClick={() => agregar(producto.id)}
             >
-              Agregar al carrito
+              {enCarrito >= producto.stock && producto.stock > 0 ? 'Stock máximo en el carrito' : 'Agregar al carrito'}
             </button>
             {enCarrito > 0 && (
               <button className="btn btn--negro" onClick={abrirCarrito}>
