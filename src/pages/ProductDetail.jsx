@@ -7,7 +7,7 @@ import NotFound from './NotFound.jsx'
 
 function ProductDetail() {
   const { id } = useParams()
-  const { agregar, getCantidad } = useCart()
+  const { agregar, getCantidad, abrirCarrito } = useCart()
   const { productos } = useProducts()
   const producto = productos.find((p) => p.id === Number(id))
 
@@ -43,9 +43,9 @@ function ProductDetail() {
               Agregar al carrito
             </button>
             {enCarrito > 0 && (
-              <Link to="/carrito" className="btn btn--negro">
+              <button className="btn btn--negro" onClick={abrirCarrito}>
                 Ver carrito ({enCarrito})
-              </Link>
+              </button>
             )}
           </div>
         </div>

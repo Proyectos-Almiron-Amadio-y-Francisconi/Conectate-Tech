@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useReducer } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react'
 import { useProducts } from './ProductsContext.jsx'
 
 const CLAVE_STORAGE = 'conectate_cart'
@@ -37,7 +37,11 @@ function cargarInicial() {
 
 export function CartProvider({ children }) {
   const [items, dispatch] = useReducer(reducer, [], cargarInicial)
+  const [abierto, setAbierto] = useState(false)
   const { productos } = useProducts()
+
+  const abrirCarrito = useCallback(() => setAbierto(true), [])
+  const cerrarCarrito = useCallback(() => setAbierto(false), [])
 
   // Persistir en localStorage cada vez que cambia el carrito
   useEffect(() => {
@@ -59,8 +63,11 @@ export function CartProvider({ children }) {
       quitarUno: (id) => dispatch({ tipo: 'QUITAR_UNO', id }),
       eliminar: (id) => dispatch({ tipo: 'ELIMINAR', id }),
       vaciar: () => dispatch({ tipo: 'VACIAR' }),
+      abierto,
+      abrirCarrito,
+      cerrarCarrito,
     }
-  }, [items, productos])
+  }, [items, productos, abierto, abrirCarrito, cerrarCarrito])
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
