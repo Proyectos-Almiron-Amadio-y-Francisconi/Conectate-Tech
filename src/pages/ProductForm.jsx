@@ -5,7 +5,8 @@ import NotFound from './NotFound.jsx'
 
 const CATEGORIAS_SUGERIDAS = [
   'CPUs', 'Mothers', 'Gráficos', 'RAM', 'Almacenamiento', 'Fuentes', 'Gabinetes',
-  'Coolers', 'Monitores', 'Periféricos', 'Audio', 'Soportes', 'Protección',
+  'Refrigeración', 'Ventiladores', 'Monitores', 'Periféricos', 'Audio', 'Soportes',
+  'Protección', 'Tablets', 'Consolas',
 ]
 
 const VACIO = { nombre: '', categoria: '', precio: '', stock: '', descripcion: '', imagen: '' }

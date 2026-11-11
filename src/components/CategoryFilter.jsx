@@ -1,18 +1,38 @@
-
-function CategoryFilter({ categorias, activa, onChange }) {
+// Panel lateral: cada categoría es una casilla; se pueden marcar varias a la vez.
+// Si no hay ninguna marcada, se muestran todos los productos.
+function CategoryFilter({ id, categorias, seleccionadas, onToggle, onLimpiar }) {
   return (
-    <div className="filtro" role="group" aria-label="Filtrar por categoría">
-      {['Todas', ...categorias].map((cat) => (
-        <button
-          key={cat}
-          className={'filtro__boton' + (activa === cat ? ' filtro__boton--activo' : '')}
-          onClick={() => onChange(cat)}
-          aria-pressed={activa === cat}
-        >
-          {cat}
-        </button>
-      ))}
-    </div>
+    <aside id={id} className="filtros" aria-label="Filtros de productos">
+      <div className="filtros__cabecera">
+        <h2>Categorías</h2>
+        {seleccionadas.length > 0 && (
+          <button type="button" className="filtros__limpiar" onClick={onLimpiar}>
+            Limpiar
+          </button>
+        )}
+      </div>
+
+      <ul className="filtros__lista">
+        {categorias.map((c) => {
+          const marcada = seleccionadas.includes(c.nombre)
+          const vacia = c.cantidad === 0 && !marcada
+          return (
+            <li key={c.nombre}>
+              <label className={'filtros__opcion' + (vacia ? ' filtros__opcion--vacia' : '')}>
+                <input
+                  type="checkbox"
+                  checked={marcada}
+                  disabled={vacia}
+                  onChange={() => onToggle(c.nombre)}
+                />
+                <span>{c.nombre}</span>
+                <span className="filtros__cantidad">{c.cantidad}</span>
+              </label>
+            </li>
+          )
+        })}
+      </ul>
+    </aside>
   )
 }
 

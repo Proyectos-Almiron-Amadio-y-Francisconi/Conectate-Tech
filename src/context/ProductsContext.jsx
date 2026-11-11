@@ -3,7 +3,7 @@ import hardwareInicial from '../data/hardware.json'
 
 // Subir este número cada vez que se edita hardware.json: así todos los navegadores
 // descartan el catálogo viejo guardado y cargan el actualizado.
-const VERSION_CATALOGO = 2
+const VERSION_CATALOGO = 4
 const CLAVE_STORAGE = `conectate_productos_v${VERSION_CATALOGO}`
 const ProductsContext = createContext(null)
 

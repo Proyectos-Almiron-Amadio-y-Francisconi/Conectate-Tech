@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { formatPrecio } from '../utils/format.js'
+import SearchBar from './SearchBar.jsx'
 
 function Navbar() {
   const { cantidadTotal, total, abrirCarrito } = useCart()
@@ -40,6 +41,8 @@ function Navbar() {
         <Link to="/" className="navbar__brand">
           Conectate<span className="navbar__brand-tech"> Tech</span>
         </Link>
+
+        <SearchBar />
 
         <div className="navbar__derecha">
           <button type="button" className="navbar__cart" onClick={abrirCarrito} aria-label={`Abrir carrito, ${cantidadTotal} productos, total ${formatPrecio(total)}`}>

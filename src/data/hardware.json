@@ -10,7 +10,7 @@
   },
   {
     "id": 2,
-    "nombre": "MSI B860 GAMING PLUS WIFI DDR5 LGA1851 WiFi 6",
+    "nombre": "MSI B860 GAMING PLUS WIFI DDR5 LGA1851 WiFi 7",
     "categoria": "Mothers",
     "precio": 326600,
     "descripcion": "Ideal para setups de alto rendimiento y conectividad total.",
@@ -21,16 +21,25 @@
     "id": 3,
     "nombre": "Asrock Intel ARC B570 10GB GDDR6 Challenger OC",
     "categoria": "Gráficos",
-    "precio": 423900,
+    "precio": 564000,
     "descripcion": "Gráficos potentes con overclock de fábrica para gaming.",
     "imagen": "/images/gpu.jpg",
     "stock": 6
   },
   {
+    "id": 20,
+    "nombre": "Placa de Video NVIDIA GeForce RTX 5070 MSI Trio 12GB",
+    "categoria": "Gráficos",
+    "precio": 1650000,
+    "descripcion": "Placa de video de alta gama con triple ventilador para gaming en 1440p y 4K.",
+    "imagen": "/images/gpu-rtx-5070.jpg",
+    "stock": 4
+  },
+  {
     "id": 4,
     "nombre": "Memoria RAM DDR5 16GB 6000MHz T-force Vulcan Team Group",
     "categoria": "RAM",
-    "precio": 429865,
+    "precio": 571000,
     "descripcion": "Alta velocidad optimizada para PC de escritorio gamer.",
     "imagen": "/images/ram.jpg",
     "stock": 15
@@ -43,6 +52,15 @@
     "descripcion": "Almacenamiento ultra rápido de 1TB para carga instantánea.",
     "imagen": "/images/ssd.jpg",
     "stock": 12
+  },
+  {
+    "id": 18,
+    "nombre": "Unidad Sandisk Ultra Dual 256 Gb Usb-c Usb 3.1",
+    "categoria": "Almacenamiento",
+    "precio": 145603,
+    "descripcion": "Pendrive versátil para celular y computadora.",
+    "imagen": "/images/pendrive.jpg",
+    "stock": 30
   },
   {
     "id": 6,
@@ -63,22 +81,40 @@
     "stock": 5
   },
   {
+    "id": 21,
+    "nombre": "Refrigeración Líquida ID-Cooling FX360 LCD 360mm AIO",
+    "categoria": "Refrigeración",
+    "precio": 250000,
+    "descripcion": "Watercooler AIO de 360mm con pantalla LCD en el bloque y radiador triple para procesadores exigentes.",
+    "imagen": "/images/refrigeracion-liquida.jpg",
+    "stock": 6
+  },
+  {
     "id": 8,
-    "nombre": "Cooler CPU ID-Cooling FROZN A610 120mm ARGB 250w TDP",
-    "categoria": "Coolers",
+    "nombre": "Cooler CPU ID-Cooling FROZN A410 120mm ARGB",
+    "categoria": "Refrigeración",
     "precio": 96841,
-    "descripcion": "Disipador de alto rendimiento para procesadores potentes.",
+    "descripcion": "Disipador por aire con ventilador de 120 mm e iluminación ARGB para el procesador.",
     "imagen": "/images/cooler-cpu.jpg",
     "stock": 14
   },
   {
     "id": 9,
     "nombre": "Cooler FAN Be Quiet! LIGHT WINGS 120mm White ARGB PWM KIT X3",
-    "categoria": "Coolers",
+    "categoria": "Ventiladores",
     "precio": 140085,
     "descripcion": "Ventiladores silenciosos con iluminación avanzada.",
     "imagen": "/images/fans.jpg",
     "stock": 11
+  },
+  {
+    "id": 26,
+    "nombre": "Cooler Fan Reverso ID-Cooling AS-120-ARGB-KR 120mm PWM",
+    "categoria": "Ventiladores",
+    "precio": 13500,
+    "descripcion": "Ventilador de 120 mm con aspas invertidas, PWM de 4 pines hasta 2000 RPM e iluminación ARGB sincronizable. Incluye splitter para daisy chain.",
+    "imagen": "/images/ventilador-reverso-idcooling.jpg",
+    "stock": 3
   },
   {
     "id": 10,
@@ -108,6 +144,24 @@
     "stock": 25
   },
   {
+    "id": 19,
+    "nombre": "Mouse Pad Gamer Rgb Retroiluminado Xinua Mapa 80x30 Cm",
+    "categoria": "Periféricos",
+    "precio": 25000,
+    "descripcion": "Superficie extendida con bordes iluminados.",
+    "imagen": "/images/mousepad.jpg",
+    "stock": 22
+  },
+  {
+    "id": 22,
+    "nombre": "Mouse Pad Omaigat AR$10 Messi XXL 90x40 cm Negro Prime",
+    "categoria": "Periféricos",
+    "precio": 49990,
+    "descripcion": "Mousepad XXL de 90x40 cm en material Prime, con diseño de billete en negro y dorado.",
+    "imagen": "/images/mousepad-messi.jpg",
+    "stock": 5
+  },
+  {
     "id": 13,
     "nombre": "Webcam Logitech Brio 100 Full Hd 1080p Negro",
     "categoria": "Periféricos",
@@ -124,6 +178,15 @@
     "descripcion": "Control inalámbrico con joysticks magnéticos y base.",
     "imagen": "/images/joystick.jpg",
     "stock": 10
+  },
+  {
+    "id": 27,
+    "nombre": "Joystick DualSense PS5 Marvel's Wolverine Edición Limitada Battle Yellow",
+    "categoria": "Periféricos",
+    "precio": 179999,
+    "descripcion": "Control inalámbrico DualSense de edición limitada con diseño de garras negro y amarillo. Compatible con PS5, PC, Mac y móviles.",
+    "imagen": "/images/joystick-wolverine.jpg",
+    "stock": 1
   },
   {
     "id": 15,
@@ -153,51 +216,6 @@
     "stock": 16
   },
   {
-    "id": 18,
-    "nombre": "Unidad Sandisk Ultra Dual 256 Gb Usb-c Usb 3.1",
-    "categoria": "Almacenamiento",
-    "precio": 145603,
-    "descripcion": "Pendrive versátil para celular y computadora.",
-    "imagen": "/images/pendrive.jpg",
-    "stock": 30
-  },
-  {
-    "id": 19,
-    "nombre": "Mouse Pad Gamer Rgb Retroiluminado Xinua Mapa 80x30 Cm",
-    "categoria": "Periféricos",
-    "precio": 25000,
-    "descripcion": "Superficie extendida con bordes iluminados.",
-    "imagen": "/images/mousepad.jpg",
-    "stock": 22
-  },
-  {
-    "id": 20,
-    "nombre": "Placa de Video NVIDIA GeForce RTX 5070 MSI Trio 12GB",
-    "categoria": "Gráficos",
-    "precio": 1650000,
-    "descripcion": "Placa de video de alta gama con triple ventilador para gaming en 1440p y 4K.",
-    "imagen": "/images/gpu-rtx-5070.jpg",
-    "stock": 4
-  },
-  {
-    "id": 21,
-    "nombre": "Refrigeración Líquida ID-Cooling FX360 LCD 360mm AIO",
-    "categoria": "Coolers",
-    "precio": 250000,
-    "descripcion": "Watercooler AIO de 360mm con pantalla LCD en el bloque y radiador triple para procesadores exigentes.",
-    "imagen": "/images/refrigeracion-liquida.jpg",
-    "stock": 6
-  },
-  {
-    "id": 22,
-    "nombre": "Mouse Pad Omaigat AR$10 Messi XXL 90x40 cm Negro Prime",
-    "categoria": "Periféricos",
-    "precio": 49990,
-    "descripcion": "Mousepad XXL de 90x40 cm en material Prime, con diseño de billete en negro y dorado.",
-    "imagen": "/images/mousepad-messi.jpg",
-    "stock": 5
-  },
-  {
     "id": 23,
     "nombre": "Tablet TCL NXTPAPER 11 Plus 11.5\" 256GB 8GB RAM",
     "categoria": "Tablets",
@@ -223,14 +241,5 @@
     "descripcion": "Consola Nintendo Switch modelo OLED con pantalla de 7 pulgadas, juego Super Mario Bros. Wonder y suscripción a Nintendo Switch Online.",
     "imagen": "/images/switch-oled-mario-wonder.jpg",
     "stock": 5
-  },
-  {
-    "id": 26,
-    "nombre": "Cooler Fan Reverso ID-Cooling AS-120-ARGB-KR 120mm PWM",
-    "categoria": "Coolers",
-    "precio": 13500,
-    "descripcion": "Ventilador de 120 mm con aspas invertidas, PWM de 4 pines hasta 2000 RPM e iluminación ARGB sincronizable. Incluye splitter para daisy chain.",
-    "imagen": "/images/ventilador-reverso-idcooling.jpg",
-    "stock": 3
   }
 ]
