@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
@@ -10,22 +10,7 @@ function Navbar() {
   const { usuario, esAdmin, logout } = useAuth()
   const [menuAbierto, setMenuAbierto] = useState(false)
 
-  const headerRef = useRef(null)
-
   const cerrarMenu = () => setMenuAbierto(false)
-
-  // Guarda la altura real del header en una variable CSS (--navbar-h): el botón flotante
-  // de filtros la usa para quedar siempre justo debajo, sin importar si hay 1 o 2 filas.
-  useEffect(() => {
-    const el = headerRef.current
-    if (!el) return
-    const actualizar = () => document.documentElement.style.setProperty('--navbar-h', `${el.offsetHeight}px`)
-    actualizar()
-    if (typeof ResizeObserver === 'undefined') return
-    const observador = new ResizeObserver(actualizar)
-    observador.observe(el)
-    return () => observador.disconnect()
-  }, [])
 
   // Con el menú abierto: Escape lo cierra y se bloquea el scroll de la página
   useEffect(() => {
@@ -51,7 +36,7 @@ function Navbar() {
   }
 
   return (
-    <header className="navbar" ref={headerRef}>
+    <header className="navbar">
       <div className="container navbar__inner">
         <Link to="/" className="navbar__brand">
           Conectate <b className="navbar__brand-tech">Tech</b>
@@ -60,16 +45,19 @@ function Navbar() {
         <SearchBar />
 
         <div className="navbar__derecha">
-          <button type="button" className="navbar__cart" onClick={abrirCarrito} aria-label={`Abrir carrito, ${cantidadTotal} productos, total ${formatPrecio(total)}`}>
-            <span className="navbar__icono">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-              </svg>
-              {cantidadTotal > 0 && <span className="navbar__badge">{cantidadTotal}</span>}
-            </span>
-            {cantidadTotal > 0 && <span className="navbar__total">{formatPrecio(total)}</span>}
-          </button>
+          {/* El administrador no compra: no tiene carrito */}
+          {!esAdmin && (
+            <button type="button" className="navbar__cart" onClick={abrirCarrito} aria-label={`Abrir carrito, ${cantidadTotal} productos, total ${formatPrecio(total)}`}>
+              <span className="navbar__icono">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+                {cantidadTotal > 0 && <span className="navbar__badge">{cantidadTotal}</span>}
+              </span>
+              {cantidadTotal > 0 && <span className="navbar__total">{formatPrecio(total)}</span>}
+            </button>
+          )}
 
           <button
             type="button"

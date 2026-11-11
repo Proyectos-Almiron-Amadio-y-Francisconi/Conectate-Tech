@@ -1,7 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useProducts } from './ProductsContext.jsx'
+import { useAuth } from './AuthContext.jsx'
 
-const CLAVE_STORAGE = 'conectate_cart'
+// Cada cliente tiene su propio carrito guardado: conectate_cart_<id del usuario>
+const PREFIJO_STORAGE = 'conectate_cart_'
 const CartContext = createContext(null)
 
 // El carrito guarda solo { id, cantidad }. Los datos del producto salen del JSON.
@@ -24,6 +27,8 @@ function reducer(estado, accion) {
       return estado.filter((i) => i.id !== accion.id)
     case 'VACIAR':
       return []
+    case 'CARGAR':
+      return accion.items
     case 'AJUSTAR_STOCK': {
       // Recorta lo que ya estaba guardado si supera el stock actual
       const ajustado = estado
@@ -40,26 +45,44 @@ function reducer(estado, accion) {
   }
 }
 
-function cargarInicial() {
+// Carrito guardado de un usuario (si no hay usuario, no hay carrito)
+function cargarCarrito(usuarioId) {
+  if (usuarioId == null) return []
   try {
-    return JSON.parse(localStorage.getItem(CLAVE_STORAGE)) || []
+    const guardado = JSON.parse(localStorage.getItem(PREFIJO_STORAGE + usuarioId))
+    return Array.isArray(guardado) ? guardado : []
   } catch {
     return []
   }
 }
 
 export function CartProvider({ children }) {
-  const [items, dispatch] = useReducer(reducer, [], cargarInicial)
+  const { usuario, esAdmin } = useAuth()
+  const navigate = useNavigate()
+  // Solo los clientes con sesión iniciada tienen carrito (el administrador no compra)
+  const puedeComprar = Boolean(usuario) && !esAdmin
+  const duenioId = puedeComprar ? usuario.id : null
+
+  const [items, dispatch] = useReducer(reducer, duenioId, cargarCarrito)
+  const [duenioActual, setDuenioActual] = useState(duenioId)
   const [abierto, setAbierto] = useState(false)
   const { productos } = useProducts()
+
+  // Si cambió el usuario (login, logout o cambio de cuenta), se carga SU carrito
+  if (duenioActual !== duenioId) {
+    setDuenioActual(duenioId)
+    dispatch({ tipo: 'CARGAR', items: cargarCarrito(duenioId) })
+    setAbierto(false)
+  }
 
   const abrirCarrito = useCallback(() => setAbierto(true), [])
   const cerrarCarrito = useCallback(() => setAbierto(false), [])
 
-  // Persistir en localStorage cada vez que cambia el carrito
+  // Persistir en localStorage el carrito del usuario actual cada vez que cambia
   useEffect(() => {
-    localStorage.setItem(CLAVE_STORAGE, JSON.stringify(items))
-  }, [items])
+    if (duenioId == null) return
+    localStorage.setItem(PREFIJO_STORAGE + duenioId, JSON.stringify(items))
+  }, [items, duenioId])
 
   // Si el carrito guardado (o el stock) quedó desfasado, lo corregimos
   useEffect(() => {
@@ -77,7 +100,14 @@ export function CartProvider({ children }) {
       cantidadTotal: detalle.reduce((acc, i) => acc + i.cantidad, 0),
       total: detalle.reduce((acc, i) => acc + i.precio * i.cantidad, 0),
       getCantidad: (id) => items.find((i) => i.id === id)?.cantidad ?? 0,
+      puedeComprar,
       agregar: (id) => {
+        // Sin sesión: se lo manda a iniciar sesión. Administrador: no puede comprar.
+        if (!usuario) {
+          navigate('/login')
+          return
+        }
+        if (esAdmin) return
         const producto = productos.find((p) => p.id === id)
         if (producto) dispatch({ tipo: 'AGREGAR', id, max: producto.stock })
       },
@@ -88,7 +118,7 @@ export function CartProvider({ children }) {
       abrirCarrito,
       cerrarCarrito,
     }
-  }, [items, productos, abierto, abrirCarrito, cerrarCarrito])
+  }, [items, productos, abierto, abrirCarrito, cerrarCarrito, usuario, esAdmin, puedeComprar, navigate])
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

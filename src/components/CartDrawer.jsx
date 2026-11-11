@@ -113,12 +113,9 @@ function PanelCarrito() {
 
             <footer className="drawer__pie">
               <p className="drawer__total">Total: <strong>{formatPrecio(total)}</strong></p>
-              {esAdmin && (
-                <p className="drawer__aviso">El administrador no puede finalizar compras. Para comprar, iniciá sesión con una cuenta de cliente.</p>
-              )}
               <div className="drawer__botones">
                 <button className="btn btn--contorno" onClick={vaciar}>Vaciar</button>
-                <button className="btn btn--amarillo" disabled={esAdmin} onClick={finalizarCompra}>Finalizar compra</button>
+                <button className="btn btn--amarillo" onClick={finalizarCompra}>Finalizar compra</button>
               </div>
             </footer>
           </>

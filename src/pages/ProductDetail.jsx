@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { useProducts } from '../context/ProductsContext.jsx'
 import { useCart } from '../context/CartContext.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 import { formatPrecio } from '../utils/format.js'
 import ProductImage from '../components/ProductImage.jsx'
 import NotFound from './NotFound.jsx'
@@ -9,6 +10,7 @@ function ProductDetail() {
   const { id } = useParams()
   const { agregar, quitarUno, getCantidad, abrirCarrito } = useCart()
   const { productos } = useProducts()
+  const { usuario, esAdmin } = useAuth()
   const producto = productos.find((p) => p.id === Number(id))
 
   // Si el id de la URL no existe, mostramos la página 404
@@ -39,10 +41,11 @@ function ProductDetail() {
             {enCarrito === 0 ? (
               <button
                 className="btn btn--amarillo"
-                disabled={producto.stock === 0}
+                disabled={producto.stock === 0 || esAdmin}
+                title={esAdmin ? 'El administrador no puede comprar' : undefined}
                 onClick={() => agregar(producto.id)}
               >
-                {producto.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}
+                {producto.stock === 0 ? 'Sin stock' : esAdmin ? 'Solo clientes' : !usuario ? 'Ingresá para comprar' : 'Agregar al carrito'}
               </button>
             ) : (
               <div className="detalle__contador">
@@ -62,6 +65,9 @@ function ProductDetail() {
               </button>
             )}
           </div>
+          {esAdmin && (
+            <p className="detalle__aviso">El administrador no puede comprar. Para hacerlo, iniciá sesión con una cuenta de cliente.</p>
+          )}
           {alMaximo && producto.stock > 0 && (
             <p className="detalle__aviso">Ya tenés en el carrito todas las unidades disponibles.</p>
           )}

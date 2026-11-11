@@ -608,30 +608,39 @@ button { font: inherit; cursor: pointer; }
 .drawer__mensaje .btn { align-self: stretch; }
 
 /* ============================================================
-   Filtros en celular: botón flotante + panel desplegable
-   El botón queda fijo debajo del header aunque se haga scroll
+   Filtros en celular: menú lateral desde la izquierda
+   (igual que el menú hamburguesa, pero del otro lado). Ocupa toda la pantalla
+   con su fondo oscuro, así nunca se superpone con el menú de la derecha.
    ============================================================ */
 .filtros__listo { display: none; width: 100%; margin-top: 0.8rem; }
+.catalogo__filtros-fondo { display: none; }
+.catalogo__filtros-icono { display: flex; flex-direction: column; gap: 3px; width: 16px; }
+.catalogo__filtros-icono span { display: block; height: 2px; background: currentColor; border-radius: 2px; }
+
+@keyframes filtros-entrada { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 
 @media (max-width: 860px) {
   .catalogo { padding-top: 1rem; }
-  .catalogo__encabezado { min-height: 2.6rem; padding-left: 7.5rem; }
-  .catalogo__filtros-boton {
+  .catalogo__filtros-fondo {
+    display: block;
     position: fixed;
-    top: calc(var(--navbar-h, 140px) + 1rem);
-    left: 0.75rem;
-    z-index: 20;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+    inset: 0;
+    z-index: 30;
+    background: rgba(0, 0, 0, 0.55);
+    animation: menu-fade 0.2s ease;
   }
   .filtros {
     position: fixed;
-    top: calc(var(--navbar-h, 140px) + 1rem + 3.2rem);
-    left: 0.75rem;
-    right: 0.75rem;
-    max-height: calc(100vh - var(--navbar-h, 140px) - 5.5rem);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(320px, 85%);
+    z-index: 31;
     overflow-y: auto;
-    z-index: 19;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    border: 0;
+    border-radius: 0;
+    padding: 1.2rem;
+    animation: filtros-entrada 0.25s ease;
   }
   .filtros__listo {
     display: block;

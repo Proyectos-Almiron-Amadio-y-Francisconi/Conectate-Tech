@@ -14,17 +14,24 @@ Tienda online de hardware de PC (procesadores, placas de video, refrigeración, 
 
 ## 🔐 Usuarios y roles
 
-| Rol | Email | Contraseña | Qué puede hacer |
-|---|---|---|---|
-| Administrador | admin@conectate.tech | admin123 | Todo lo del cliente + panel Admin para agregar, editar y eliminar productos |
-| Común (cliente) | cliente@conectate.tech | cliente123 | Ver catálogo, ver detalle, usar el carrito y finalizar la compra |
+Usuarios de prueba (están definidos en `src/data/usuarios.json`):
 
-Sin iniciar sesión se puede navegar el catálogo y armar el carrito, pero para finalizar la compra hay que ingresar. El panel Admin está protegido: un usuario común o sin sesión no puede entrar.
+| Rol | Usuario | Email | Contraseña | Qué puede hacer |
+|---|---|---|---|---|
+| Administrador | Administrador | admin@conectate.tech | admin123 | Panel Admin: agregar, editar y eliminar productos, y ver los pedidos. **No puede comprar** (no tiene carrito) |
+| Cliente | Franco | franco@conectate.tech | franco123 | Ver catálogo, usar su carrito, finalizar compras y ver sus pedidos |
+| Cliente | Flor | flor@conectate.tech | flor123 | Ídem |
+| Cliente | Cande | cande@conectate.tech | cande123 | Ídem |
+
+* Sin iniciar sesión se puede navegar el catálogo, pero para agregar productos al carrito hay que ingresar (el botón lleva al login).
+* **Cada cliente tiene su propio carrito**: se guarda en el navegador asociado a su usuario, así que al cerrar sesión y entrar con otra cuenta cada uno ve el suyo.
+* El administrador no puede agregar productos al carrito ni comprar.
+* El panel Admin está protegido: un cliente o un visitante sin sesión no puede entrar.
 
 ## ✨ Funcionalidades principales
-* Catálogo con filtro por categoría y buscador.
+* Catálogo con filtro por categoría (en celular se abre como menú lateral izquierdo) y buscador.
 * Detalle de cada producto (`/producto/:id`).
-* Carrito de compras con cantidades, subtotales y total (se mantiene al recargar).
+* Carrito de compras por usuario, con cantidades, subtotales y total (se mantiene al recargar).
 * Login y logout con validaciones.
 * Panel de administración: listar, agregar, editar y eliminar productos, con formularios validados.
 * Botón "Restaurar catálogo" para volver a los productos originales.

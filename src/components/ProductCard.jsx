@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 import { formatPrecio } from '../utils/format.js'
 import ProductImage from './ProductImage.jsx'
 
 function ProductCard({ producto }) {
   const { getCantidad, agregar, quitarUno } = useCart()
+  const { usuario, esAdmin } = useAuth()
   const cantidad = getCantidad(producto.id)
   const alMaximo = cantidad >= producto.stock
 
@@ -23,10 +25,11 @@ function ProductCard({ producto }) {
           {cantidad === 0 ? (
             <button
               className="btn btn--amarillo"
-              disabled={producto.stock === 0}
+              disabled={producto.stock === 0 || esAdmin}
+              title={esAdmin ? 'El administrador no puede comprar' : undefined}
               onClick={() => agregar(producto.id)}
             >
-              {producto.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}
+              {producto.stock === 0 ? 'Sin stock' : esAdmin ? 'Solo clientes' : !usuario ? 'Ingresá para comprar' : 'Agregar al carrito'}
             </button>
           ) : (
             <div className="card__contador">

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useProducts } from '../context/ProductsContext.jsx'
 import ProductCard from '../components/ProductCard.jsx'
@@ -12,6 +12,24 @@ function Home() {
   const [seleccionadas, setSeleccionadas] = useState([])
   // En pantallas grandes el panel arranca abierto; en celulares, cerrado
   const [panelAbierto, setPanelAbierto] = useState(() => window.matchMedia('(min-width: 861px)').matches)
+
+  // En celular el panel es un menú lateral (izquierda): con él abierto, Escape lo cierra
+  // y no se desplaza la página de atrás
+  useEffect(() => {
+    if (!panelAbierto || !window.matchMedia('(max-width: 860px)').matches) return
+
+    function onKeyDown(e) {
+      if (e.key === 'Escape') setPanelAbierto(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    const overflowPrevio = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = overflowPrevio
+    }
+  }, [panelAbierto])
 
   // Primero se aplica la búsqueda (nombre o categoría)
   const coincidenBusqueda = useMemo(() => {
@@ -49,6 +67,7 @@ function Home() {
           aria-expanded={panelAbierto}
           aria-controls="panel-filtros"
         >
+          <span className="catalogo__filtros-icono" aria-hidden="true"><span /><span /><span /></span>
           Filtros
           {seleccionadas.length > 0 && <span className="catalogo__filtros-contador">{seleccionadas.length}</span>}
         </button>
@@ -59,6 +78,8 @@ function Home() {
       </div>
 
       <div className={'catalogo__layout' + (panelAbierto ? '' : ' catalogo__layout--sin-panel')}>
+        {/* Fondo oscuro: solo se ve en celular, donde el panel es un menú lateral */}
+        {panelAbierto && <div className="catalogo__filtros-fondo" onClick={() => setPanelAbierto(false)} />}
         {panelAbierto && (
           <CategoryFilter
             id="panel-filtros"
