@@ -66,6 +66,7 @@ function Home() {
             seleccionadas={seleccionadas}
             onToggle={alternarCategoria}
             onLimpiar={() => setSeleccionadas([])}
+            onCerrar={() => setPanelAbierto(false)}
           />
         )}
 

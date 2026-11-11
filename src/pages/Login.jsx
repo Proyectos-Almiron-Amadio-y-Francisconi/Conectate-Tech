@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
+import usuarios from '../data/usuarios.json'
 
 function Login() {
   const { usuario, login } = useAuth()
@@ -55,8 +56,9 @@ function Login() {
 
         <div className="formulario__ayuda">
           <p><strong>Usuarios de prueba</strong></p>
-          <p>Administrador: admin@conectate.tech / admin123</p>
-          <p>Cliente: cliente@conectate.tech / cliente123</p>
+          {usuarios.map((u) => (
+            <p key={u.id}>{u.nombre}: {u.email} / {u.password}</p>
+          ))}
         </div>
       </form>
     </div>

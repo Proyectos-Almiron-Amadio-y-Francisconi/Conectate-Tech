@@ -1,6 +1,6 @@
 // Panel lateral: cada categoría es una casilla; se pueden marcar varias a la vez.
 // Si no hay ninguna marcada, se muestran todos los productos.
-function CategoryFilter({ id, categorias, seleccionadas, onToggle, onLimpiar }) {
+function CategoryFilter({ id, categorias, seleccionadas, onToggle, onLimpiar, onCerrar }) {
   return (
     <aside id={id} className="filtros" aria-label="Filtros de productos">
       <div className="filtros__cabecera">
@@ -32,6 +32,11 @@ function CategoryFilter({ id, categorias, seleccionadas, onToggle, onLimpiar }) 
           )
         })}
       </ul>
+
+      {/* Solo se ve en celular: el panel flota sobre la página y hay que poder cerrarlo */}
+      <button type="button" className="btn btn--amarillo filtros__listo" onClick={onCerrar}>
+        Listo
+      </button>
     </aside>
   )
 }

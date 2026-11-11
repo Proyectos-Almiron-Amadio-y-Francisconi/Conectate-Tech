@@ -39,7 +39,7 @@
     "id": 4,
     "nombre": "Memoria RAM DDR5 16GB 6000MHz T-force Vulcan Team Group",
     "categoria": "RAM",
-    "precio": 571000,
+    "precio": 471000,
     "descripcion": "Alta velocidad optimizada para PC de escritorio gamer.",
     "imagen": "/images/ram.jpg",
     "stock": 15
@@ -84,7 +84,7 @@
     "id": 21,
     "nombre": "Refrigeración Líquida ID-Cooling FX360 LCD 360mm AIO",
     "categoria": "Refrigeración",
-    "precio": 250000,
+    "precio": 179999,
     "descripcion": "Watercooler AIO de 360mm con pantalla LCD en el bloque y radiador triple para procesadores exigentes.",
     "imagen": "/images/refrigeracion-liquida.jpg",
     "stock": 6

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import { useProducts } from '../context/ProductsContext.jsx'
+import { usePedidos } from '../context/PedidosContext.jsx'
 import { formatPrecio } from '../utils/format.js'
 import ProductImage from './ProductImage.jsx'
 
@@ -9,7 +11,9 @@ import ProductImage from './ProductImage.jsx'
 // así el estado interno (ej. "compra realizada") se reinicia al cerrarlo.
 function PanelCarrito() {
   const { detalle, total, agregar, quitarUno, eliminar, vaciar, cerrarCarrito } = useCart()
-  const { usuario } = useAuth()
+  const { usuario, esAdmin } = useAuth()
+  const { descontarStock } = useProducts()
+  const { crearPedido, pedidos } = usePedidos()
   const navigate = useNavigate()
   const [compraHecha, setCompraHecha] = useState(null)
   const botonCerrar = useRef(null)
@@ -39,8 +43,13 @@ function PanelCarrito() {
       navigate('/login')
       return
     }
-    setCompraHecha(total) // guardamos el total antes de vaciar
+    if (esAdmin) return // el administrador no compra
+    // Cada usuario cuenta sus pedidos desde 1
+    const numero = pedidos.filter((p) => p.usuarioId === usuario.id).length + 1
+    const pedido = crearPedido(usuario, detalle) // guarda el pedido con lo que se compró
+    descontarStock(detalle) // y resta lo vendido del stock
     vaciar()
+    setCompraHecha({ ...pedido, numero })
   }
 
   return (
@@ -58,8 +67,9 @@ function PanelCarrito() {
         {compraHecha !== null ? (
           <div className="drawer__mensaje">
             <h3>¡Compra realizada!</h3>
-            <p>Total procesado: {formatPrecio(compraHecha)}. Gracias por elegir Conectate Tech.</p>
-            <button className="btn btn--amarillo" onClick={cerrarCarrito}>Seguir comprando</button>
+            <p>Pedido #{compraHecha.numero} por {formatPrecio(compraHecha.total)}. Gracias por elegir Conectate Tech.</p>
+            <Link to="/mis-pedidos" className="btn btn--amarillo" onClick={cerrarCarrito}>Ver mis pedidos</Link>
+            <button className="btn btn--contorno" onClick={cerrarCarrito}>Seguir comprando</button>
           </div>
         ) : detalle.length === 0 ? (
           <div className="drawer__mensaje">
@@ -103,9 +113,12 @@ function PanelCarrito() {
 
             <footer className="drawer__pie">
               <p className="drawer__total">Total: <strong>{formatPrecio(total)}</strong></p>
+              {esAdmin && (
+                <p className="drawer__aviso">El administrador no puede finalizar compras. Para comprar, iniciá sesión con una cuenta de cliente.</p>
+              )}
               <div className="drawer__botones">
                 <button className="btn btn--contorno" onClick={vaciar}>Vaciar</button>
-                <button className="btn btn--amarillo" onClick={finalizarCompra}>Finalizar compra</button>
+                <button className="btn btn--amarillo" disabled={esAdmin} onClick={finalizarCompra}>Finalizar compra</button>
               </div>
             </footer>
           </>

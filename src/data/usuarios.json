@@ -1,4 +1,6 @@
 [
   { "id": 1, "nombre": "Administrador", "email": "admin@conectate.tech", "password": "admin123", "rol": "admin" },
-  { "id": 2, "nombre": "Cliente", "email": "cliente@conectate.tech", "password": "cliente123", "rol": "comun" }
+  { "id": 2, "nombre": "Franco", "email": "franco@conectate.tech", "password": "franco123", "rol": "comun" },
+  { "id": 3, "nombre": "Flor", "email": "flor@conectate.tech", "password": "flor123", "rol": "comun" },
+  { "id": 4, "nombre": "Cande", "email": "cande@conectate.tech", "password": "cande123", "rol": "comun" }
 ]

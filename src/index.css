@@ -82,7 +82,7 @@ button { font: inherit; cursor: pointer; }
   letter-spacing: 0.02em;
   color: #fff;
 }
-.navbar__brand-tech { color: var(--amarillo); }
+.navbar__brand-tech { color: var(--amarillo); font-weight: inherit; }
 
 /* Buscador */
 .buscador { position: relative; width: 100%; }
@@ -420,7 +420,6 @@ button { font: inherit; cursor: pointer; }
   margin-inline: auto;
   background: #fff;
   border: 1px solid var(--borde);
-  border-top: 5px solid var(--amarillo);
   border-radius: 6px;
   padding: 1.8rem;
 }
@@ -572,3 +571,78 @@ button { font: inherit; cursor: pointer; }
 @keyframes drawer-entrada { from { transform: translateX(100%); } to { transform: translateX(0); } }
 @keyframes drawer-fade { from { opacity: 0; } to { opacity: 1; } }
 
+
+/* ============================================================
+   Pedidos (Mis pedidos / Pedidos de todos)
+   ============================================================ */
+.pedidos { padding-top: 2rem; padding-bottom: 1rem; }
+.pedidos__encabezado { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+.pedidos__resumen { margin: 0.5rem 0 1.2rem; color: var(--texto-suave); }
+.pedidos__resumen strong { color: var(--texto); font-family: var(--fuente-titulo); font-size: 1.3rem; }
+.pedidos__vacio { padding: 2rem 0; color: var(--texto-suave); }
+.pedidos__vacio p { margin: 0 0 1rem; }
+.pedidos__filtro { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin: 1rem 0 0.5rem; }
+.pedidos__filtro label { display: flex; align-items: center; gap: 0.6rem; font-weight: 600; }
+.pedidos__filtro select { font: inherit; padding: 0.4rem 0.7rem; border: 1px solid #9aa0a6; border-radius: 6px; background: #fff; }
+.pedidos__filtro .pedidos__resumen { margin: 0; }
+.pedidos__lista { display: grid; gap: 1.2rem; }
+
+.pedido { background: #fff; border: 1px solid var(--borde); border-radius: 6px; }
+.pedido__cabecera { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 0.5rem 1rem; padding: 1rem 1.2rem 0.6rem; }
+.pedido__titulo { font-size: 1.5rem; }
+.pedido__fecha { margin: 0.1rem 0 0; color: var(--texto-suave); font-size: 0.9rem; }
+.pedido__total { margin: 0; font-family: var(--fuente-titulo); font-size: 2rem; font-weight: 700; line-height: 1; }
+.pedido__items { list-style: none; margin: 0; padding: 0 1.2rem; }
+.pedido__item { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; align-items: center; gap: 0.9rem; padding: 0.6rem 0; border-top: 1px solid var(--borde); }
+.pedido__img { width: 56px; height: 56px; object-fit: contain; background: #fff; border: 1px solid var(--borde); border-radius: 4px; }
+.pedido__datos { display: flex; flex-direction: column; min-width: 0; }
+.pedido__nombre { font-weight: 600; line-height: 1.25; }
+.pedido__detalle { color: var(--texto-suave); font-size: 0.85rem; }
+.pedido__subtotal { font-family: var(--fuente-titulo); font-size: 1.25rem; }
+.pedido__pie { padding: 0.7rem 1.2rem; background: var(--gris); border-top: 1px solid var(--borde); color: var(--texto-suave); font-size: 0.9rem; border-radius: 0 0 6px 6px; }
+
+/* Aviso para el administrador en el carrito */
+.drawer__aviso { margin: 0 0 0.8rem; color: var(--texto-suave); font-size: 0.85rem; }
+
+/* Mensaje de compra realizada: botones apilados */
+.drawer__mensaje .btn { align-self: stretch; }
+
+/* ============================================================
+   Filtros en celular: botón flotante + panel desplegable
+   El botón queda fijo debajo del header aunque se haga scroll
+   ============================================================ */
+.filtros__listo { display: none; width: 100%; margin-top: 0.8rem; }
+
+@media (max-width: 860px) {
+  .catalogo { padding-top: 1rem; }
+  .catalogo__encabezado { min-height: 2.6rem; padding-left: 7.5rem; }
+  .catalogo__filtros-boton {
+    position: fixed;
+    top: calc(var(--navbar-h, 140px) + 1rem);
+    left: 0.75rem;
+    z-index: 20;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  }
+  .filtros {
+    position: fixed;
+    top: calc(var(--navbar-h, 140px) + 1rem + 3.2rem);
+    left: 0.75rem;
+    right: 0.75rem;
+    max-height: calc(100vh - var(--navbar-h, 140px) - 5.5rem);
+    overflow-y: auto;
+    z-index: 19;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+  .filtros__listo {
+    display: block;
+    position: sticky;
+    bottom: 0;
+    box-shadow: 0 0 0 0.6rem #fff;
+  }
+}
+
+@media (max-width: 600px) {
+  .pedido__item { grid-template-columns: 48px minmax(0, 1fr); }
+  .pedido__img { width: 48px; height: 48px; }
+  .pedido__subtotal { grid-column: 2; }
+}

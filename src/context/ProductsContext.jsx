@@ -3,7 +3,7 @@ import hardwareInicial from '../data/hardware.json'
 
 // Subir este número cada vez que se edita hardware.json: así todos los navegadores
 // descartan el catálogo viejo guardado y cargan el actualizado.
-const VERSION_CATALOGO = 4
+const VERSION_CATALOGO = 6
 const CLAVE_STORAGE = `conectate_productos_v${VERSION_CATALOGO}`
 const ProductsContext = createContext(null)
 
@@ -36,11 +36,21 @@ export function ProductsProvider({ children }) {
     setProductos(productos.filter((p) => p.id !== id))
   }
 
+  // Al confirmar una compra: resta del stock lo que se vendió
+  function descontarStock(items) {
+    setProductos((actuales) =>
+      actuales.map((p) => {
+        const vendido = items.find((i) => i.id === p.id)
+        return vendido ? { ...p, stock: Math.max(0, p.stock - vendido.cantidad) } : p
+      }),
+    )
+  }
+
   function restaurarCatalogo() {
     setProductos(hardwareInicial)
   }
 
-  const value = { productos, agregarProducto, editarProducto, eliminarProducto, restaurarCatalogo }
+  const value = { productos, agregarProducto, editarProducto, eliminarProducto, descontarStock, restaurarCatalogo }
   return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>
 }
 

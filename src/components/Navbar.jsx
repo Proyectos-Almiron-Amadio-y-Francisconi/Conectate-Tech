@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
@@ -10,7 +10,22 @@ function Navbar() {
   const { usuario, esAdmin, logout } = useAuth()
   const [menuAbierto, setMenuAbierto] = useState(false)
 
+  const headerRef = useRef(null)
+
   const cerrarMenu = () => setMenuAbierto(false)
+
+  // Guarda la altura real del header en una variable CSS (--navbar-h): el botón flotante
+  // de filtros la usa para quedar siempre justo debajo, sin importar si hay 1 o 2 filas.
+  useEffect(() => {
+    const el = headerRef.current
+    if (!el) return
+    const actualizar = () => document.documentElement.style.setProperty('--navbar-h', `${el.offsetHeight}px`)
+    actualizar()
+    if (typeof ResizeObserver === 'undefined') return
+    const observador = new ResizeObserver(actualizar)
+    observador.observe(el)
+    return () => observador.disconnect()
+  }, [])
 
   // Con el menú abierto: Escape lo cierra y se bloquea el scroll de la página
   useEffect(() => {
@@ -36,10 +51,10 @@ function Navbar() {
   }
 
   return (
-    <header className="navbar">
+    <header className="navbar" ref={headerRef}>
       <div className="container navbar__inner">
         <Link to="/" className="navbar__brand">
-          Conectate<span className="navbar__brand-tech"> Tech</span>
+          Conectate <b className="navbar__brand-tech">Tech</b>
         </Link>
 
         <SearchBar />
@@ -81,7 +96,9 @@ function Navbar() {
 
             <ul className="menu__lista">
               <li><NavLink to="/" end onClick={cerrarMenu}>Catálogo</NavLink></li>
-              {esAdmin && <li><NavLink to="/admin" onClick={cerrarMenu}>Modo administrador</NavLink></li>}
+              {usuario && !esAdmin && <li><NavLink to="/mis-pedidos" onClick={cerrarMenu}>Mis pedidos</NavLink></li>}
+              {esAdmin && <li><NavLink to="/admin" end onClick={cerrarMenu}>Modo administrador</NavLink></li>}
+              {esAdmin && <li><NavLink to="/admin/pedidos" onClick={cerrarMenu}>Pedidos</NavLink></li>}
             </ul>
 
             <div className="menu__pie">

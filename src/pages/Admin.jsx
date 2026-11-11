@@ -24,6 +24,7 @@ function Admin() {
         <h1>Panel de administración</h1>
         <div className="admin__acciones">
           <button className="btn btn--contorno" onClick={handleRestaurar}>Restaurar catálogo</button>
+          <Link to="/admin/pedidos" className="btn btn--negro">Ver pedidos</Link>
           <Link to="/admin/nuevo" className="btn btn--amarillo">+ Nuevo producto</Link>
         </div>
       </div>

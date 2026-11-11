@@ -6,7 +6,10 @@ const AuthContext = createContext(null)
 
 function cargarUsuario() {
   try {
-    return JSON.parse(localStorage.getItem(CLAVE_STORAGE)) || null
+    const guardada = JSON.parse(localStorage.getItem(CLAVE_STORAGE))
+    // Solo se acepta la sesión si el usuario todavía existe en usuarios.json
+    const existe = usuarios.find((u) => u.id === guardada?.id && u.email === guardada?.email)
+    return existe ? { id: existe.id, nombre: existe.nombre, email: existe.email, rol: existe.rol } : null
   } catch {
     return null
   }
