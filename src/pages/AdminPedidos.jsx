@@ -7,11 +7,28 @@ import PedidoCard from '../components/PedidoCard.jsx'
 
 // Vista del administrador: los pedidos de todos los usuarios
 function AdminPedidos() {
-  const { pedidos } = usePedidos()
+  const { pedidos, cancelarPedido, eliminarPedido } = usePedidos()
   const [clienteId, setClienteId] = useState('todos')
 
   const visibles = clienteId === 'todos' ? pedidos : pedidos.filter((p) => p.usuarioId === Number(clienteId))
-  const facturado = visibles.reduce((acc, p) => acc + p.total, 0)
+  const vigentes = visibles.filter((p) => p.estado !== 'cancelado')
+  const facturado = vigentes.reduce((acc, p) => acc + p.total, 0)
+  const cancelados = visibles.length - vigentes.length
+
+  // Número general del pedido (1 = el más viejo). Si se elimina uno, los siguientes se corren.
+  const numeroGeneral = (pedido) => pedidos.length - pedidos.findIndex((p) => p.id === pedido.id)
+
+  function handleCancelar(pedido) {
+    if (window.confirm(`¿Cancelar el pedido #${numeroGeneral(pedido)} de ${pedido.usuarioNombre}? Los productos vuelven al stock.`)) {
+      cancelarPedido(pedido.id, 'vendedor')
+    }
+  }
+
+  function handleEliminar(pedido) {
+    if (window.confirm(`¿Eliminar el pedido #${numeroGeneral(pedido)} del historial? Los pedidos siguientes se renumeran.`)) {
+      eliminarPedido(pedido.id)
+    }
+  }
 
   return (
     <div className="container pedidos">
@@ -31,7 +48,9 @@ function AdminPedidos() {
           </select>
         </label>
         <p className="pedidos__resumen">
-          {visibles.length} {visibles.length === 1 ? 'pedido' : 'pedidos'} · Total: <strong>{formatPrecio(facturado)}</strong>
+          {visibles.length} {visibles.length === 1 ? 'pedido' : 'pedidos'}
+          {cancelados > 0 && <> ({cancelados} {cancelados === 1 ? 'cancelado' : 'cancelados'})</>}
+          {' '}· Total: <strong>{formatPrecio(facturado)}</strong>
         </p>
       </div>
 
@@ -40,7 +59,14 @@ function AdminPedidos() {
       ) : (
         <div className="pedidos__lista">
           {visibles.map((p) => (
-            <PedidoCard key={p.id} pedido={p} mostrarCliente />
+            <PedidoCard
+              key={p.id}
+              pedido={p}
+              numero={numeroGeneral(p)}
+              mostrarCliente
+              onCancelar={() => handleCancelar(p)}
+              onEliminar={() => handleEliminar(p)}
+            />
           ))}
         </div>
       )}

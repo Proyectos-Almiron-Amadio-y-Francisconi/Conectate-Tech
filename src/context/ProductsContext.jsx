@@ -46,11 +46,22 @@ export function ProductsProvider({ children }) {
     )
   }
 
+  // Al cancelar un pedido: devuelve al stock lo que se había descontado
+  // (si el producto ya no existe en el catálogo, se ignora)
+  function reponerStock(items) {
+    setProductos((actuales) =>
+      actuales.map((p) => {
+        const devuelto = items.find((i) => i.id === p.id)
+        return devuelto ? { ...p, stock: p.stock + devuelto.cantidad } : p
+      }),
+    )
+  }
+
   function restaurarCatalogo() {
     setProductos(hardwareInicial)
   }
 
-  const value = { productos, agregarProducto, editarProducto, eliminarProducto, descontarStock, restaurarCatalogo }
+  const value = { productos, agregarProducto, editarProducto, eliminarProducto, descontarStock, reponerStock, restaurarCatalogo }
   return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>
 }
 

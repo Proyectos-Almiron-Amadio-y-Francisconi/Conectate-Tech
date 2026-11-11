@@ -1,17 +1,16 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useProducts } from '../context/ProductsContext.jsx'
 import ProductCard from '../components/ProductCard.jsx'
 import CategoryFilter from '../components/CategoryFilter.jsx'
+import { useFiltros } from '../context/FiltrosContext.jsx'
 
 function Home() {
   const { productos } = useProducts()
   const [params] = useSearchParams()
   const busqueda = params.get('q') ?? ''
 
-  const [seleccionadas, setSeleccionadas] = useState([])
-  // En pantallas grandes el panel arranca abierto; en celulares, cerrado
-  const [panelAbierto, setPanelAbierto] = useState(() => window.matchMedia('(min-width: 861px)').matches)
+  const { seleccionadas, panelAbierto, setPanelAbierto, alternarCategoria, limpiar } = useFiltros()
 
   // En celular el panel es un menú lateral (izquierda): con él abierto, Escape lo cierra
   // y no se desplaza la página de atrás
@@ -29,7 +28,7 @@ function Home() {
       document.removeEventListener('keydown', onKeyDown)
       document.body.style.overflow = overflowPrevio
     }
-  }, [panelAbierto])
+  }, [panelAbierto, setPanelAbierto])
 
   // Primero se aplica la búsqueda (nombre o categoría)
   const coincidenBusqueda = useMemo(() => {
@@ -51,26 +50,9 @@ function Home() {
       ? coincidenBusqueda
       : coincidenBusqueda.filter((p) => seleccionadas.includes(p.categoria))
 
-  function alternarCategoria(nombre) {
-    setSeleccionadas((actual) =>
-      actual.includes(nombre) ? actual.filter((c) => c !== nombre) : [...actual, nombre],
-    )
-  }
-
   return (
     <section className="container catalogo">
       <div className="catalogo__encabezado">
-        <button
-          type="button"
-          className="catalogo__filtros-boton"
-          onClick={() => setPanelAbierto(!panelAbierto)}
-          aria-expanded={panelAbierto}
-          aria-controls="panel-filtros"
-        >
-          <span className="catalogo__filtros-icono" aria-hidden="true"><span /><span /><span /></span>
-          Filtros
-          {seleccionadas.length > 0 && <span className="catalogo__filtros-contador">{seleccionadas.length}</span>}
-        </button>
         <p className="catalogo__resumen" aria-live="polite">
           {visibles.length} {visibles.length === 1 ? 'producto' : 'productos'}
           {busqueda.trim() && <> para “{busqueda.trim()}”</>}
@@ -86,7 +68,7 @@ function Home() {
             categorias={categorias}
             seleccionadas={seleccionadas}
             onToggle={alternarCategoria}
-            onLimpiar={() => setSeleccionadas([])}
+            onLimpiar={limpiar}
             onCerrar={() => setPanelAbierto(false)}
           />
         )}

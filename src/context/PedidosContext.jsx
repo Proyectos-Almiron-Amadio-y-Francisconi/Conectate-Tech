@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { useProducts } from './ProductsContext.jsx'
 
 const CLAVE_STORAGE = 'conectate_pedidos'
 const PedidosContext = createContext(null)
@@ -14,6 +15,7 @@ function cargarPedidos() {
 export function PedidosProvider({ children }) {
   // Del más nuevo al más viejo
   const [pedidos, setPedidos] = useState(cargarPedidos)
+  const { reponerStock } = useProducts()
 
   useEffect(() => {
     localStorage.setItem(CLAVE_STORAGE, JSON.stringify(pedidos))
@@ -39,7 +41,25 @@ export function PedidosProvider({ children }) {
     return pedido
   }
 
-  const value = { pedidos, crearPedido }
+  // Cancelar: el pedido se queda en el historial pero "apagado", y el stock vuelve.
+  // por: 'comprador' (lo canceló el cliente) o 'vendedor' (lo canceló el administrador)
+  function cancelarPedido(id, por) {
+    const pedido = pedidos.find((p) => p.id === id)
+    if (!pedido || pedido.estado === 'cancelado') return
+    reponerStock(pedido.items)
+    setPedidos(
+      pedidos.map((p) =>
+        p.id === id ? { ...p, estado: 'cancelado', canceladoPor: por, fechaCancelacion: new Date().toISOString() } : p,
+      ),
+    )
+  }
+
+  // Eliminar: borra el pedido del historial (los números de los demás se corren solos)
+  function eliminarPedido(id) {
+    setPedidos(pedidos.filter((p) => p.id !== id))
+  }
+
+  const value = { pedidos, crearPedido, cancelarPedido, eliminarPedido }
   return <PedidosContext.Provider value={value}>{children}</PedidosContext.Provider>
 }
 

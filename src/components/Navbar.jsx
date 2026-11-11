@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { formatPrecio } from '../utils/format.js'
 import SearchBar from './SearchBar.jsx'
+import FiltrosBoton from './FiltrosBoton.jsx'
 
 function Navbar() {
   const { cantidadTotal, total, abrirCarrito } = useCart()
   const { usuario, esAdmin, logout } = useAuth()
   const [menuAbierto, setMenuAbierto] = useState(false)
+  const { pathname } = useLocation()
 
   const cerrarMenu = () => setMenuAbierto(false)
 
@@ -42,7 +44,11 @@ function Navbar() {
           Conectate <b className="navbar__brand-tech">Tech</b>
         </Link>
 
-        <SearchBar />
+        <div className="navbar__busqueda">
+          {/* Los filtros solo existen en el catálogo */}
+          {pathname === '/' && <FiltrosBoton />}
+          <SearchBar />
+        </div>
 
         <div className="navbar__derecha">
           {/* El administrador no compra: no tiene carrito */}

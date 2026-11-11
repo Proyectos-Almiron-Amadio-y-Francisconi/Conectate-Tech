@@ -1,15 +1,26 @@
 import { formatFecha, formatPrecio } from '../utils/format.js'
 import ProductImage from './ProductImage.jsx'
 
+// Quién ve el pedido y quién lo canceló determinan el aviso que se muestra
+function avisoCancelacion(pedido, vistaAdmin) {
+  const cancelo = pedido.canceladoPor
+  if (vistaAdmin) {
+    return cancelo === 'comprador' ? 'El comprador canceló este pedido.' : 'Cancelaste este pedido.'
+  }
+  return cancelo === 'vendedor' ? 'El vendedor canceló este pedido.' : 'Cancelaste este pedido.'
+}
+
 // Muestra un pedido: fecha y hora, cada producto comprado y el total.
-// En la vista del administrador (mostrarCliente) también aparece quién compró.
-// numero: el número que se muestra. Cada usuario cuenta sus pedidos desde 1;
-// el administrador ve el número general.
-function PedidoCard({ pedido, numero = pedido.id, mostrarCliente = false }) {
+// numero: el número que se muestra (cada usuario cuenta sus pedidos desde 1;
+// el administrador ve el número general).
+// mostrarCliente: vista del administrador (aparece quién compró).
+// onCancelar / onEliminar: acciones disponibles según el estado del pedido.
+function PedidoCard({ pedido, numero = pedido.id, mostrarCliente = false, onCancelar, onEliminar }) {
   const unidades = pedido.items.reduce((acc, i) => acc + i.cantidad, 0)
+  const cancelado = pedido.estado === 'cancelado'
 
   return (
-    <article className="pedido">
+    <article className={'pedido' + (cancelado ? ' pedido--cancelado' : '')}>
       <header className="pedido__cabecera">
         <div>
           <h2 className="pedido__titulo">Pedido #{numero}</h2>
@@ -20,6 +31,14 @@ function PedidoCard({ pedido, numero = pedido.id, mostrarCliente = false }) {
         </div>
         <p className="pedido__total">{formatPrecio(pedido.total)}</p>
       </header>
+
+      {cancelado && (
+        <p className="pedido__aviso" role="status">
+          <strong>Pedido cancelado.</strong> {avisoCancelacion(pedido, mostrarCliente)}
+          {pedido.fechaCancelacion && <> ({formatFecha(pedido.fechaCancelacion)})</>}
+          {' '}El stock volvió al catálogo.
+        </p>
+      )}
 
       <ul className="pedido__items">
         {pedido.items.map((item) => (
@@ -35,7 +54,15 @@ function PedidoCard({ pedido, numero = pedido.id, mostrarCliente = false }) {
       </ul>
 
       <footer className="pedido__pie">
-        {pedido.items.length} {pedido.items.length === 1 ? 'producto' : 'productos'} · {unidades} {unidades === 1 ? 'unidad' : 'unidades'}
+        <span>
+          {pedido.items.length} {pedido.items.length === 1 ? 'producto' : 'productos'} · {unidades} {unidades === 1 ? 'unidad' : 'unidades'}
+        </span>
+        {!cancelado && onCancelar && (
+          <button type="button" className="pedido__accion" onClick={onCancelar}>Cancelar pedido</button>
+        )}
+        {cancelado && onEliminar && (
+          <button type="button" className="pedido__accion" onClick={onEliminar}>Eliminar del historial</button>
+        )}
       </footer>
     </article>
   )

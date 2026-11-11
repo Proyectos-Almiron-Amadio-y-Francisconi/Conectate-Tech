@@ -85,7 +85,39 @@ button { font: inherit; cursor: pointer; }
 .navbar__brand-tech { color: var(--amarillo); font-weight: inherit; }
 
 /* Buscador */
-.buscador { position: relative; width: 100%; }
+.navbar__busqueda { display: flex; align-items: center; gap: 0.6rem; min-width: 0; }
+.buscador { position: relative; flex: 1; min-width: 0; }
+
+/* Botón de filtros (solo ícono) a la izquierda del buscador */
+.navbar__filtros {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #3a3d41;
+  border-radius: 8px;
+}
+.navbar__filtros:hover,
+.navbar__filtros--activo { border-color: var(--amarillo); color: var(--amarillo); }
+.navbar__filtros-contador {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  display: grid;
+  place-items: center;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  padding: 0 0.25rem;
+  border-radius: 999px;
+  background: var(--rojo);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
 .buscador__icono { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--texto-suave); pointer-events: none; }
 .buscador__input {
   width: 100%;
@@ -215,7 +247,7 @@ button { font: inherit; cursor: pointer; }
 @media (max-width: 860px) {
   /* En pantallas angostas el buscador pasa a una segunda fila */
   .navbar__inner { grid-template-columns: 1fr auto; row-gap: 0.6rem; padding-block: 0.6rem; }
-  .buscador { grid-column: 1 / -1; grid-row: 2; }
+  .navbar__busqueda { grid-column: 1 / -1; grid-row: 2; }
 }
 @media (max-width: 600px) {
   .navbar__brand { font-size: 1.6rem; }
@@ -245,28 +277,6 @@ button { font: inherit; cursor: pointer; }
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.2rem;
-}
-.catalogo__filtros-boton {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--negro);
-  color: var(--amarillo);
-  border: 0;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-weight: 600;
-}
-.catalogo__filtros-contador {
-  display: inline-grid;
-  place-items: center;
-  min-width: 1.4rem;
-  height: 1.4rem;
-  padding: 0 0.3rem;
-  border-radius: 999px;
-  background: var(--rojo);
-  color: #fff;
-  font-size: 0.75rem;
 }
 .catalogo__resumen { margin: 0; color: var(--texto-suave); }
 .catalogo__layout {
@@ -599,7 +609,18 @@ button { font: inherit; cursor: pointer; }
 .pedido__nombre { font-weight: 600; line-height: 1.25; }
 .pedido__detalle { color: var(--texto-suave); font-size: 0.85rem; }
 .pedido__subtotal { font-family: var(--fuente-titulo); font-size: 1.25rem; }
-.pedido__pie { padding: 0.7rem 1.2rem; background: var(--gris); border-top: 1px solid var(--borde); color: var(--texto-suave); font-size: 0.9rem; border-radius: 0 0 6px 6px; }
+.pedido__pie { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem 1rem; padding: 0.7rem 1.2rem; background: var(--gris); border-top: 1px solid var(--borde); color: var(--texto-suave); font-size: 0.9rem; border-radius: 0 0 6px 6px; }
+.pedido__accion { background: none; border: 0; padding: 0; font-weight: 600; color: var(--rojo); text-decoration: underline; }
+.pedido__accion:hover { color: #b92c3a; }
+
+/* Pedido cancelado: se ve "apagado", pero sigue en el historial */
+.pedido--cancelado { background: #f4f5f6; }
+.pedido--cancelado .pedido__cabecera,
+.pedido--cancelado .pedido__items { opacity: 0.55; }
+.pedido--cancelado .pedido__total,
+.pedido--cancelado .pedido__subtotal { text-decoration: line-through; }
+.pedido--cancelado .pedido__img { filter: grayscale(1); }
+.pedido__aviso { margin: 0; padding: 0.6rem 1.2rem; background: #e6e8ea; color: #454a50; font-size: 0.9rem; }
 
 /* Aviso para el administrador en el carrito */
 .drawer__aviso { margin: 0 0 0.8rem; color: var(--texto-suave); font-size: 0.85rem; }
@@ -614,8 +635,6 @@ button { font: inherit; cursor: pointer; }
    ============================================================ */
 .filtros__listo { display: none; width: 100%; margin-top: 0.8rem; }
 .catalogo__filtros-fondo { display: none; }
-.catalogo__filtros-icono { display: flex; flex-direction: column; gap: 3px; width: 16px; }
-.catalogo__filtros-icono span { display: block; height: 2px; background: currentColor; border-radius: 2px; }
 
 @keyframes filtros-entrada { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 
