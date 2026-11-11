@@ -174,7 +174,7 @@
     "id": 20,
     "nombre": "Placa de Video NVIDIA GeForce RTX 5070 MSI Trio 12GB",
     "categoria": "Gráficos",
-    "precio": 1300000,
+    "precio": 1650000,
     "descripcion": "Placa de video de alta gama con triple ventilador para gaming en 1440p y 4K.",
     "imagen": "/images/gpu-rtx-5070.jpg",
     "stock": 4
@@ -187,5 +187,50 @@
     "descripcion": "Watercooler AIO de 360mm con pantalla LCD en el bloque y radiador triple para procesadores exigentes.",
     "imagen": "/images/refrigeracion-liquida.jpg",
     "stock": 6
+  },
+  {
+    "id": 22,
+    "nombre": "Mouse Pad Omaigat AR$10 Messi XXL 90x40 cm Negro Prime",
+    "categoria": "Periféricos",
+    "precio": 49990,
+    "descripcion": "Mousepad XXL de 90x40 cm en material Prime, con diseño de billete en negro y dorado.",
+    "imagen": "/images/mousepad-messi.jpg",
+    "stock": 5
+  },
+  {
+    "id": 23,
+    "nombre": "Tablet TCL NXTPAPER 11 Plus 11.5\" 256GB 8GB RAM",
+    "categoria": "Tablets",
+    "precio": 799999,
+    "descripcion": "Pantalla NXTPAPER 4.0 de 11,5 pulgadas, 2.2K y 120 Hz, con 8 GB de RAM y 256 GB de almacenamiento.",
+    "imagen": "/images/tablet-tcl-nxtpaper.jpg",
+    "stock": 5
+  },
+  {
+    "id": 24,
+    "nombre": "Consola PlayStation 5 Slim Digital 1TB + Marvel's Spider-Man 2",
+    "categoria": "Consolas",
+    "precio": 1858000,
+    "descripcion": "PS5 Slim edición digital de 1 TB, con control DualSense y el juego Marvel's Spider-Man 2 incluido.",
+    "imagen": "/images/ps5-spiderman2.jpg",
+    "stock": 5
+  },
+  {
+    "id": 25,
+    "nombre": "Nintendo Switch OLED + Super Mario Bros. Wonder",
+    "categoria": "Consolas",
+    "precio": 799999,
+    "descripcion": "Consola Nintendo Switch modelo OLED con pantalla de 7 pulgadas, juego Super Mario Bros. Wonder y suscripción a Nintendo Switch Online.",
+    "imagen": "/images/switch-oled-mario-wonder.jpg",
+    "stock": 5
+  },
+  {
+    "id": 26,
+    "nombre": "Cooler Fan Reverso ID-Cooling AS-120-ARGB-KR 120mm PWM",
+    "categoria": "Coolers",
+    "precio": 13500,
+    "descripcion": "Ventilador de 120 mm con aspas invertidas, PWM de 4 pines hasta 2000 RPM e iluminación ARGB sincronizable. Incluye splitter para daisy chain.",
+    "imagen": "/images/ventilador-reverso-idcooling.jpg",
+    "stock": 3
   }
 ]

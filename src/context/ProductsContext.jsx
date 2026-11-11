@@ -1,7 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import hardwareInicial from '../data/hardware.json'
 
-const CLAVE_STORAGE = 'conectate_productos'
+// Subir este número cada vez que se edita hardware.json: así todos los navegadores
+// descartan el catálogo viejo guardado y cargan el actualizado.
+const VERSION_CATALOGO = 2
+const CLAVE_STORAGE = `conectate_productos_v${VERSION_CATALOGO}`
 const ProductsContext = createContext(null)
 
 // Los productos se cargan desde localStorage; si no hay nada, se usa hardware.json

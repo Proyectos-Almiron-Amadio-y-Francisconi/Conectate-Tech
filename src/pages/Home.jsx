@@ -19,15 +19,6 @@ function Home() {
 
   return (
     <>
-      <section className="hero">
-        <div className="container">
-          <h1 className="hero__titulo">Armá tu PC con lo mejor en hardware</h1>
-          <p className="hero__texto">
-            Procesadores, placas de video, refrigeración y periféricos en un solo lugar.
-          </p>
-        </div>
-      </section>
-
       <section className="container catalogo">
         <div className="catalogo__barra">
           <CategoryFilter categorias={categorias} activa={categoria} onChange={setCategoria} />

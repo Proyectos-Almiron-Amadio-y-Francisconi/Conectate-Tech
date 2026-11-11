@@ -58,7 +58,4 @@ npm run dev
 Después abrí el link que aparece en la terminal (normalmente http://localhost:5173).
 
 ## 🌐 Aplicación publicada
-(Pegar acá el link de Vercel)
-
-## 📸 Captura de pantalla
-(Agregar acá una captura del proyecto. Ejemplo: guardar la imagen en `public/captura.png` y escribir `![Captura](public/captura.png)`)
+https://conectate-tech.vercel.app/

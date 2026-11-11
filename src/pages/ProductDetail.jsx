@@ -7,7 +7,7 @@ import NotFound from './NotFound.jsx'
 
 function ProductDetail() {
   const { id } = useParams()
-  const { agregar, getCantidad, abrirCarrito } = useCart()
+  const { agregar, quitarUno, getCantidad, abrirCarrito } = useCart()
   const { productos } = useProducts()
   const producto = productos.find((p) => p.id === Number(id))
 
@@ -15,6 +15,7 @@ function ProductDetail() {
   if (!producto) return <NotFound />
 
   const enCarrito = getCantidad(producto.id)
+  const alMaximo = enCarrito >= producto.stock
 
   return (
     <div className="container detalle">
@@ -35,19 +36,35 @@ function ProductDetail() {
           </p>
 
           <div className="detalle__acciones">
-            <button
-              className="btn btn--amarillo"
-              disabled={producto.stock === 0 || enCarrito >= producto.stock}
-              onClick={() => agregar(producto.id)}
-            >
-              {enCarrito >= producto.stock && producto.stock > 0 ? 'Stock máximo en el carrito' : 'Agregar al carrito'}
-            </button>
+            {enCarrito === 0 ? (
+              <button
+                className="btn btn--amarillo"
+                disabled={producto.stock === 0}
+                onClick={() => agregar(producto.id)}
+              >
+                {producto.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}
+              </button>
+            ) : (
+              <div className="detalle__contador">
+                <button className="btn btn--rojo" onClick={() => quitarUno(producto.id)} aria-label="Quitar una unidad">−</button>
+                <span>{enCarrito}</span>
+                <button
+                  className="btn btn--amarillo"
+                  disabled={alMaximo}
+                  onClick={() => agregar(producto.id)}
+                  aria-label="Agregar una unidad"
+                >+</button>
+              </div>
+            )}
             {enCarrito > 0 && (
               <button className="btn btn--negro" onClick={abrirCarrito}>
                 Ver carrito ({enCarrito})
               </button>
             )}
           </div>
+          {alMaximo && producto.stock > 0 && (
+            <p className="detalle__aviso">Ya tenés en el carrito todas las unidades disponibles.</p>
+          )}
         </div>
       </div>
     </div>

@@ -10,38 +10,42 @@ function ProductCard({ producto }) {
 
   return (
     <article className="card">
-      <Link to={`/producto/${producto.id}`} className="card__imagen-link">
+      <div className="card__imagen-caja">
         <ProductImage src={producto.imagen} alt={producto.nombre} className="card__imagen" />
-      </Link>
+      </div>
 
       <div className="card__cuerpo">
         <span className="card__categoria">{producto.categoria}</span>
-        <h3 className="card__titulo">
-          <Link to={`/producto/${producto.id}`}>{producto.nombre}</Link>
-        </h3>
+        <h3 className="card__titulo">{producto.nombre}</h3>
         <p className="card__precio">{formatPrecio(producto.precio)}</p>
 
-        {cantidad === 0 ? (
-          <button
-            className="btn btn--amarillo card__accion"
-            disabled={producto.stock === 0}
-            onClick={() => agregar(producto.id)}
-          >
-            {producto.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}
-          </button>
-        ) : (
-          <div className="card__contador">
-            <button className="btn btn--rojo" onClick={() => quitarUno(producto.id)} aria-label="Quitar una unidad">−</button>
-            <span>{cantidad}</span>
+        <div className="card__acciones">
+          {cantidad === 0 ? (
             <button
               className="btn btn--amarillo"
-              disabled={alMaximo}
-              title={alMaximo ? 'Alcanzaste el stock disponible' : undefined}
+              disabled={producto.stock === 0}
               onClick={() => agregar(producto.id)}
-              aria-label="Agregar una unidad"
-            >+</button>
-          </div>
-        )}
+            >
+              {producto.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}
+            </button>
+          ) : (
+            <div className="card__contador">
+              <button className="btn btn--rojo" onClick={() => quitarUno(producto.id)} aria-label="Quitar una unidad">−</button>
+              <span>{cantidad}</span>
+              <button
+                className="btn btn--amarillo"
+                disabled={alMaximo}
+                title={alMaximo ? 'Alcanzaste el stock disponible' : undefined}
+                onClick={() => agregar(producto.id)}
+                aria-label="Agregar una unidad"
+              >+</button>
+            </div>
+          )}
+
+          <Link to={`/producto/${producto.id}`} className="btn btn--contorno">
+            Ver producto
+          </Link>
+        </div>
       </div>
     </article>
   )

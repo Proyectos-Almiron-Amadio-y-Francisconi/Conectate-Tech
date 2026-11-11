@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import { formatPrecio } from '../utils/format.js'
 
 function Navbar() {
-  const { cantidadTotal, abrirCarrito } = useCart()
+  const { cantidadTotal, total, abrirCarrito } = useCart()
   const { usuario, esAdmin, logout } = useAuth()
   const [menuAbierto, setMenuAbierto] = useState(false)
 
@@ -41,12 +42,15 @@ function Navbar() {
         </Link>
 
         <div className="navbar__derecha">
-          <button type="button" className="navbar__cart" onClick={abrirCarrito} aria-label={`Abrir carrito, ${cantidadTotal} productos`}>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-            </svg>
-            {cantidadTotal > 0 && <span className="navbar__badge">{cantidadTotal}</span>}
+          <button type="button" className="navbar__cart" onClick={abrirCarrito} aria-label={`Abrir carrito, ${cantidadTotal} productos, total ${formatPrecio(total)}`}>
+            <span className="navbar__icono">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+              </svg>
+              {cantidadTotal > 0 && <span className="navbar__badge">{cantidadTotal}</span>}
+            </span>
+            {cantidadTotal > 0 && <span className="navbar__total">{formatPrecio(total)}</span>}
           </button>
 
           <button
