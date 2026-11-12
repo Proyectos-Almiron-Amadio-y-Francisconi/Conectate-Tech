@@ -37,7 +37,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <Footer />
+      <Footer />0
       <CartDrawer />
     </div>
   )

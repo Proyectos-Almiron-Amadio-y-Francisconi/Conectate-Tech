@@ -88,8 +88,9 @@ function Navbar() {
               <button type="button" className="menu__cerrar" onClick={cerrarMenu} aria-label="Cerrar menú">×</button>
             </div>
 
-            <ul className="menu__lista">
-              <li><NavLink to="/" end onClick={cerrarMenu}>Catálogo</NavLink></li>
+             <ul className="menu__lista">
+              <li><NavLink to="/" end onClick={cerrarMenu}>Inicio</NavLink></li>
+              {pathname === '/' && <li><a href="#productos" onClick={cerrarMenu}>Productos</a></li>}
               {usuario && !esAdmin && <li><NavLink to="/mis-pedidos" onClick={cerrarMenu}>Mis pedidos</NavLink></li>}
               {esAdmin && <li><NavLink to="/admin" end onClick={cerrarMenu}>Modo administrador</NavLink></li>}
               {esAdmin && <li><NavLink to="/admin/pedidos" onClick={cerrarMenu}>Pedidos</NavLink></li>}
