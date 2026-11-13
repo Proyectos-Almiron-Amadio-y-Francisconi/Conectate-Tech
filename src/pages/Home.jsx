@@ -13,7 +13,7 @@ function Home() {
 
   const { seleccionadas, panelAbierto, setPanelAbierto, alternarCategoria, limpiar } = useFiltros()
 
-  // En celular el panel es un menú lateral: Escape lo cierra y bloquea el scroll de fondo.
+  // En celular el panel es un menú lateral: Escape lo cierra y bloquea el scroll de fondo
   useEffect(() => {
     if (!panelAbierto || !window.matchMedia('(max-width: 860px)').matches) return
 
@@ -30,13 +30,13 @@ function Home() {
     }
   }, [panelAbierto, setPanelAbierto])
 
-  // Primero se aplica la búsqueda (nombre o categoría).
+  // Primero se aplica la búsqueda (nombre o categoría)
   const coincidenBusqueda = useMemo(() => {
     const texto = busqueda.trim().toLowerCase()
     return productos.filter((p) => `${p.nombre} ${p.categoria}`.toLowerCase().includes(texto))
   }, [productos, busqueda])
 
-  // Categorías únicas con la cantidad de productos que coinciden con la búsqueda.
+  // Categorías únicas con la cantidad de productos que coinciden con la búsqueda
   const categorias = useMemo(() => {
     const nombres = [...new Set(productos.map((p) => p.categoria))]
     return nombres.map((nombre) => ({

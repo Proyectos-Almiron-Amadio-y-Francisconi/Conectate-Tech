@@ -8,7 +8,7 @@ function MisPedidos() {
   const { usuario, esAdmin } = useAuth()
   const { pedidos, cancelarPedido, eliminarPedido } = usePedidos()
 
-  // Hay que haber iniciado sesión para ver el historial
+  // iniciar sesión para ver el historial
   if (!usuario) return <Navigate to="/login" replace />
   // El administrador no compra: su vista es la de todos los pedidos
   if (esAdmin) return <Navigate to="/admin/pedidos" replace />
